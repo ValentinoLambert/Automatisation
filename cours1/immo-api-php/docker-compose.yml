@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  server:
+    image: nginx:alpine
+    ports:
+      - "${SERVER_PORT:-8080}:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - database
+
+  php:
+    build:
+      context: ./docker/php
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - database
+
+  database:
+    image: mariadb:10
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MARIADB_DATABASE: ${MYSQL_DATABASE:-immo_db}
+      MARIADB_USER: ${MYSQL_USER:-user}
+      MARIADB_PASSWORD: ${MYSQL_PASSWORD:-password}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
