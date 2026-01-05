@@ -12,7 +12,6 @@ use Slim\Exception\HttpNotFoundException;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// Check env variables
 try {
   $dotenv = Dotenv::createUnsafeImmutable("..");
   $dotenv->safeLoad();
