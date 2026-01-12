@@ -22,7 +22,6 @@ openModal()
 .catch(error => console.log(error))
 }
 
-// On gère la fermeture du modal
 function init() {
 
 document.querySelector('#close-modal').addEventListener("click", closeModal)
