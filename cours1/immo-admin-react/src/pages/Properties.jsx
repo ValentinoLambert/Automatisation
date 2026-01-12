@@ -5,16 +5,8 @@ import PropertiesList from '../components/PropertiesList';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
+const types = ['House', 'Apartment', 'Commercial'];
 export default function Properties() {
-    const location = useLocation();
-    const [properties, setProperties] = useState([]);
-    const [page, setPage] = useState(1);
-    const [search, setSearch] = useState('');
-    const [sold, setSold] = useState(false);
-    const [priceGt, setPriceGt] = useState('');
-    const [priceLt, setPriceLt] = useState('');
-    const [message, setMessage] = useState(location?.state?.message);
-    const types = ['House', 'Apartment', 'Commercial'];
     const [checkedType, setCheckedType] = useState(
         new Array(types.length).fill(false),
     );

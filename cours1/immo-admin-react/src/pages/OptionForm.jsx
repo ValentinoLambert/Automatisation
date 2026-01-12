@@ -39,7 +39,6 @@ export default function OptionForm() {
                 },
             })
             .then((response) => {
-                console.log(response);
                 const message = `option ${response.data.name}${id ? ' updated' : ' created'}`;
                 navigate('/options', { state: { message } });
             })

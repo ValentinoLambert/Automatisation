@@ -112,9 +112,9 @@ export default function PropertiesList(props) {
 }
 
 PropertiesList.propTypes = {
-    properties: PropTypes.any,
-    propertiesChanger: PropTypes.any,
-    messageChanger: PropTypes.any,
+    properties: PropTypes.object,
+    propertiesChanger: PropTypes.func,
+    messageChanger: PropTypes.func,
 };
 
 PropertiesList.defaultProps = {

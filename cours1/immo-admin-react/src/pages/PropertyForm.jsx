@@ -13,7 +13,6 @@ export default function PropertyForm() {
     const [error, setError] = useState();
     const [options, setOptions] = useState([]);
     const [optionsSelected, setOptionsSelected] = useState(null);
-
     function transformArrayOptions(arr) {
         return arr.map((item) => ({
             value: item.id.toString(),

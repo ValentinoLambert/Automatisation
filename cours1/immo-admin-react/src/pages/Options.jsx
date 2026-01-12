@@ -15,7 +15,6 @@ export default function Options() {
             .then((data) => {
                 setOptions(data);
             });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
