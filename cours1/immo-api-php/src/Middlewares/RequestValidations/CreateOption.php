@@ -4,7 +4,7 @@ namespace App\Middlewares\RequestValidations;
 
 use Respect\Validation\Validator;
 
-class CreateOption extends requestValidation
+class CreateOption extends RequestValidation
 {
     public array $rules;
 

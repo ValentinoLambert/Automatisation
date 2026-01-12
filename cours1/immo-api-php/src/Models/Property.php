@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Property extends \Illuminate\Database\Eloquent\Model
 {
     use SoftDeletes;
+
     protected $table = 'property';
     protected $primaryKey = 'id';
     protected $attributes = [

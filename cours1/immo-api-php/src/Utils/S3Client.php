@@ -27,7 +27,7 @@ class S3Client extends AWSClient
         $dataPart = $parts[1];
         $result = $this->putObject([
           'Bucket' => getenv('S3_BUCKET'),
-          'Key' => $id.'/'.$image_id,
+          'Key' => $id . '/' . $image_id,
           'Body' => base64_decode($dataPart),
           'ContentEncoding' => 'base64',
         ]);
@@ -39,7 +39,7 @@ class S3Client extends AWSClient
     {
         $result = $this->deleteObject([
           'Bucket' => getenv('S3_BUCKET'),
-          'Key' => $property_id.'/'.$image_id,
+          'Key' => $property_id . '/' . $image_id,
         ]);
 
         return $result;
@@ -49,12 +49,12 @@ class S3Client extends AWSClient
     {
         $result = $this->listObjectsV2([
           'Bucket' => getenv('S3_BUCKET'),
-          'Prefix' => strval($property_id)."/",
+          'Prefix' => strval($property_id) . "/",
         ]);
         if ($result['KeyCount'] === 0) {
             return [];
         }
-        $result = array_map(fn ($item) => ["link" => (getenv('S3_PUBLIC_ENDPOINT') ? getenv('S3_PUBLIC_ENDPOINT') : getenv('S3_ENDPOINT'))."/".getenv('S3_BUCKET')."/".$item['Key'], "id" => substr($item['Key'], strrpos($item['Key'], '/') + 1)], $result['Contents']);
+        $result = array_map(fn ($item) => ["link" => (getenv('S3_PUBLIC_ENDPOINT') ? getenv('S3_PUBLIC_ENDPOINT') : getenv('S3_ENDPOINT')) . "/" . getenv('S3_BUCKET') . "/" . $item['Key'], "id" => substr($item['Key'], strrpos($item['Key'], '/') + 1)], $result['Contents']);
 
         return $result;
     }
