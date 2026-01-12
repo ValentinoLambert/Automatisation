@@ -1,6 +1,7 @@
 /vendor
 /node_modules
 .env
+/docker/db_data
 
 .DS_STORE
 /.vscode
