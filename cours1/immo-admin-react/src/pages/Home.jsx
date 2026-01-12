@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+
 export default function Home() {
     return (
-        <><section className="bg-white">
+        <section className="bg-white">
             <div className="px-4 mx-auto max-w-screen-xl text-center lg:py-16">
                 <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-blue-600 md:text-5xl lg:text-6x">
                     My Immo Admin Dashboard
@@ -36,6 +37,5 @@ export default function Home() {
                 </div>
             </div>
         </section>
-        </>
     );
 }

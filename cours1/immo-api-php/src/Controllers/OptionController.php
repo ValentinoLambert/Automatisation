@@ -48,7 +48,7 @@ class OptionController extends AppController
             $option = Option::findOrFail($args['id']);
 
             return JsonWriter::success($response, Status::HTTP_OK, $option);
-        } catch(ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return JsonWriter::error($response, Status::HTTP_NOT_FOUND, $e->getMessage());
         } catch (\Exception $e) {
             return JsonWriter::error($response, Status::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
@@ -64,7 +64,7 @@ class OptionController extends AppController
             $option->save();
 
             return JsonWriter::success($response, Status::HTTP_OK, $option);
-        } catch(ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return JsonWriter::error($response, Status::HTTP_NOT_FOUND, $e->getMessage());
         } catch (\Exception $e) {
             return JsonWriter::error($response, Status::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
@@ -78,7 +78,7 @@ class OptionController extends AppController
             $option->delete();
 
             return JsonWriter::success($response, Status::HTTP_OK, $option);
-        } catch(ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return JsonWriter::error($response, Status::HTTP_NOT_FOUND, $e->getMessage());
         } catch (\Exception $e) {
             return JsonWriter::error($response, Status::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());

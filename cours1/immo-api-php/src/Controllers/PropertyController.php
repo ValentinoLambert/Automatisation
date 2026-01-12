@@ -32,13 +32,13 @@ class PropertyController extends AppController
             $property->save();
             $property->options()->sync($data['options'] ?? null);
             $property->load('options');
-            try{
+            try {
                 if (isset($data['images'])) {
                     foreach ($data['images'] as $image) {
                         $this->container->get('s3')->saveImage($image['link'], $image['id'], $property->id);
                     }
                 }
-            }catch(\Exception $e) {
+            } catch (\Exception $e) {
             }
 
             return JsonWriter::success($response, Status::HTTP_OK, $property);
@@ -57,7 +57,7 @@ class PropertyController extends AppController
             $url = $request->getUri()->getPath();
             $properties = Property::query();
             if (! empty($params['name'])) {
-                $properties->where('name', 'like', '%'.$params['name'].'%');
+                $properties->where('name', 'like', '%' . $params['name'] . '%');
             }
             if (! empty($params['types'])) {
                 $properties->whereIn('type', explode(",", $params['types']));
@@ -92,12 +92,12 @@ class PropertyController extends AppController
 
             try {
                 $property->images = $this->container->get('s3')->getImages($property->id);
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
             }
             $property->load('options');
 
             return JsonWriter::success($response, Status::HTTP_OK, $property);
-        } catch(ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return JsonWriter::error($response, Status::HTTP_NOT_FOUND, $e->getMessage());
         } catch (\Exception $e) {
             return JsonWriter::error($response, Status::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
@@ -112,7 +112,7 @@ class PropertyController extends AppController
             $property->save();
 
             return JsonWriter::success($response, Status::HTTP_OK, $property);
-        } catch(ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return JsonWriter::error($response, Status::HTTP_NOT_FOUND, $e->getMessage());
         } catch (\Exception $e) {
             return JsonWriter::error($response, Status::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
@@ -127,7 +127,7 @@ class PropertyController extends AppController
             $property->save();
 
             return JsonWriter::success($response, Status::HTTP_OK, $property);
-        } catch(ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return JsonWriter::error($response, Status::HTTP_NOT_FOUND, $e->getMessage());
         } catch (\Exception $e) {
             return JsonWriter::error($response, Status::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
@@ -160,12 +160,12 @@ class PropertyController extends AppController
                             $this->container->get('s3')->saveImage($image['link'], $image['id'], $property->id);
                         }
                     }
-                } catch(\Exception $e) {
+                } catch (\Exception $e) {
                 }
             }
 
             return JsonWriter::success($response, Status::HTTP_OK, $property);
-        } catch(ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return JsonWriter::error($response, Status::HTTP_NOT_FOUND, $e->getMessage());
         } catch (\Exception $e) {
             return JsonWriter::error($response, Status::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
@@ -179,7 +179,7 @@ class PropertyController extends AppController
             $property->delete();
 
             return JsonWriter::success($response, Status::HTTP_OK, $property);
-        } catch(ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return JsonWriter::error($response, Status::HTTP_NOT_FOUND, $e->getMessage());
         } catch (\Exception $e) {
             return JsonWriter::error($response, Status::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
@@ -196,7 +196,7 @@ class PropertyController extends AppController
                 $s3 = $this->container->get('s3');
                 $s3->putObject([
                   'Bucket' => getenv('S3_BUCKET'),
-                  'Key' => $args['id'].'/'.$uuid,
+                  'Key' => $args['id'] . '/' . $uuid,
                   'Body' => base64_decode($image),
                   'ContentEncoding' => 'base64',
                   'ContentType' => 'image/jpeg',
@@ -206,7 +206,7 @@ class PropertyController extends AppController
             }
 
             return JsonWriter::success($response, Status::HTTP_OK, ['message' => 'successfully uploaded']);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return JsonWriter::error($response, Status::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
         }
     }
@@ -221,7 +221,7 @@ class PropertyController extends AppController
             $s3->deleteImage($property->id, $image);
 
             return JsonWriter::success($response, Status::HTTP_OK, ['message' => 'successfully deleted']);
-        } catch(ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return JsonWriter::error($response, Status::HTTP_NOT_FOUND, $e->getMessage());
         } catch (\Exception $e) {
             return JsonWriter::error($response, Status::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());

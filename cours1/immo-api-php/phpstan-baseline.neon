@@ -1,0 +1,199 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Property App\\Controllers\\AppController\:\:\$container is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/Controllers/AppController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Option\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controllers/OptionController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\Option\:\:findOrFail\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 3
+			path: src/Controllers/OptionController.php
+
+		-
+			message: '#^Method App\\Controllers\\OptionController\:\:create\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 2
+			path: src/Controllers/OptionController.php
+
+		-
+			message: '#^Method App\\Controllers\\OptionController\:\:delete\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 3
+			path: src/Controllers/OptionController.php
+
+		-
+			message: '#^Method App\\Controllers\\OptionController\:\:get\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 3
+			path: src/Controllers/OptionController.php
+
+		-
+			message: '#^Method App\\Controllers\\OptionController\:\:list\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 2
+			path: src/Controllers/OptionController.php
+
+		-
+			message: '#^Method App\\Controllers\\OptionController\:\:update\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 3
+			path: src/Controllers/OptionController.php
+
+		-
+			message: '#^Property App\\Controllers\\OptionController\:\:\$container is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/Controllers/OptionController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Property\:\:\$city\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Property\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Property\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Property\:\:\$is_sold\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Property\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Property\:\:\$price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Property\:\:\$surface\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Property\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\:\:setPath\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\Property\:\:findOrFail\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 6
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Method App\\Controllers\\PropertyController\:\:addImage\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 3
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Method App\\Controllers\\PropertyController\:\:create\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 2
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Method App\\Controllers\\PropertyController\:\:delete\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 3
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Method App\\Controllers\\PropertyController\:\:deleteImage\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 3
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Method App\\Controllers\\PropertyController\:\:get\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 3
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Method App\\Controllers\\PropertyController\:\:list\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 2
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Method App\\Controllers\\PropertyController\:\:sell\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 3
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Method App\\Controllers\\PropertyController\:\:unsell\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 3
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Method App\\Controllers\\PropertyController\:\:update\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 3
+			path: src/Controllers/PropertyController.php
+
+		-
+			message: '#^Method App\\Middlewares\\CorsMiddleware\:\:__invoke\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Middlewares/CorsMiddleware.php
+
+		-
+			message: '#^Method App\\Middlewares\\PaginationMiddleware\:\:__invoke\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Middlewares/PaginationMiddleware.php
+
+		-
+			message: '#^Method App\\Middlewares\\RequestValidations\\RequestValidation\:\:__invoke\(\) should return Slim\\Psr7\\Response but returns Psr\\Http\\Message\\ResponseInterface\.$#'
+			identifier: return.type
+			count: 2
+			path: src/Middlewares/RequestValidations/RequestValidation.php
+
+		-
+			message: '#^Variable \$app might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/Routes/options.php
+
+		-
+			message: '#^Variable \$app might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/Routes/properties.php

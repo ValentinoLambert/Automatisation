@@ -1,0 +1,52 @@
+#!/bin/bash
+# Pre-commit hook to run linters in sub-projects
+
+echo "Running pre-commit hook..."
+
+# Define paths relative to the root of the repo
+REACT_DIR="cours1/immo-admin-react"
+PHP_DIR="cours1/immo-api-php"
+
+EXIT_CODE=0
+
+# React Linting
+if [ -d "$REACT_DIR" ]; then
+    echo "Linting React project..."
+    # Capture output and exit code
+    if ! (cd "$REACT_DIR" && npm run lint); then
+        echo "React lint failed."
+        EXIT_CODE=1
+    else
+        echo "React lint passed."
+    fi
+fi
+
+# PHP Linting
+if [ -d "$PHP_DIR" ]; then
+    echo "Linting PHP project..."
+    
+    echo "Running PHPCS..."
+    if ! (cd "$PHP_DIR" && composer run-script phpcs); then
+        echo "PHPCS failed."
+        EXIT_CODE=1
+    else
+        echo "PHPCS passed."
+    fi
+
+    echo "Running PHPStan..."
+    if ! (cd "$PHP_DIR" && composer run-script phpstan); then
+         echo "PHPStan failed."
+         EXIT_CODE=1
+    else
+         echo "PHPStan passed."
+    fi
+fi
+
+
+if [ $EXIT_CODE -ne 0 ]; then
+    echo "Pre-commit checks failed. Commit aborted."
+    exit 1
+fi
+
+echo "All checks passed!"
+exit 0

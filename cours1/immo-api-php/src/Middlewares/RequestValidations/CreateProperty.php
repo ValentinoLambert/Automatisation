@@ -3,8 +3,9 @@
 namespace App\Middlewares\RequestValidations;
 
 use Respect\Validation\Validator;
+use App\Middlewares\RequestValidations\RequestValidation;
 
-class CreateProperty extends requestValidation
+class CreateProperty extends RequestValidation
 {
     public array $rules;
 

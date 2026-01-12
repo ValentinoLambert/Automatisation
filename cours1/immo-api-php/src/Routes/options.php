@@ -1,5 +1,7 @@
 <?php
 
+/** @var \Slim\App $app */
+
 namespace App\Routes;
 
 use App\Controllers\OptionController;

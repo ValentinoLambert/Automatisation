@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Psr7\Response;
 
-class requestValidation
+class RequestValidation
 {
     public function __construct(public array $rules, public string $place)
     {
