@@ -1,0 +1,17 @@
+{
+  "name": "automatisation-exercice-2-td",
+  "version": "1.0.0",
+  "description": "Ce projet est un petit annuaire d'entreprises.   Il permet de lister plusieurs entreprises, et d'en voir leur bureaux et employées.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.97.2",
+    "vite": "^7.3.1"
+  }
+}

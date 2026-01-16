@@ -1,9 +1,22 @@
+# Dépendances
 /vendor
 /node_modules
+
+# Build & Cache
+/public/build
+.vite
+
+# Environnement & Logs
 .env
+*.log
+
+# Base de données
 /docker/db_data
 
+# IDE & OS
 .DS_STORE
+.DS_Store
 /.vscode
 /.idea
+*.swp
 

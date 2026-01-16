@@ -42,10 +42,22 @@ class MyExtension extends AbstractExtension
 					return '';
 				}
 
-				return 'xxxxx'; 	// todo : return hashed filenames (css and js) in production, use manifest.json content to dynamise
+			$css = $manifest['main.js']['css'][0] ?? '';
+			$js = $manifest['main.js']['file'] ?? '';
+			
+			$html = '';
+			if ($css) {
+				$html .= '<link rel="stylesheet" href="/build/' . $css . '">';
 			}
-			else {
-				return 'yyyyyy'; // todo : return dev server (app.js and vite client) in development
+			if ($js) {
+				$html .= '<script type="module" src="/build/' . $js . '"></script>';
 			}
+			
+			return $html;
 		}
+		else {
+			return '<script type="module" src="http://localhost:3000/build/@vite/client"></script>' .
+			       '<script type="module" src="http://localhost:3000/build/main.js"></script>';
+		}
+	}
 }
