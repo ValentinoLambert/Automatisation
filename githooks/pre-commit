@@ -1,0 +1,29 @@
+#!/bin/bash
+# Pre-commit hook minimaliste
+
+echo "Validation des linters avant commit..."
+
+# React
+cd cours1/immo-admin-react
+npm run lint
+if [ $? -ne 0 ]; then
+    echo "Échec du lint React. Commit annulé."
+    exit 1
+fi
+
+# PHP
+cd ../immo-api-php
+composer run-script phpcs
+if [ $? -ne 0 ]; then
+    echo "Échec du PHPCS. Commit annulé."
+    exit 1
+fi
+
+composer run-script phpstan
+if [ $? -ne 0 ]; then
+    echo "Échec du PHPStan. Commit annulé."
+    exit 1
+fi
+
+echo "Linters validés !"
+exit 0

@@ -1,0 +1,20 @@
+# Docker / Database
+cours2/Automatisation-Exercice-2-TD/docker/db_data/
+
+# Environment files
+.env
+cours2/.env
+
+# Dependencies
+node_modules/
+vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
