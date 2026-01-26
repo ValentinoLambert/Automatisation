@@ -24,15 +24,15 @@ jobs:
           extensions: ctype, iconv, pdo, sqlite3
           tools: composer:v2
       
-      # Installation des dependances
-      - name: Installation des dependances
-        working-directory: cours4/td_backend
-        run: composer install --prefer-dist --no-progress --no-interaction
-      
       # Configuration de l'environnement
       - name: Configuration environnement
         working-directory: cours4/td_backend
         run: cp .env.ci .env
+      
+      # Installation des dependances
+      - name: Installation des dependances
+        working-directory: cours4/td_backend
+        run: composer install --prefer-dist --no-progress --no-interaction
       
       # Execution PHPCS
       - name: PHPCS
