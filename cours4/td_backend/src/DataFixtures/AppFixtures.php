@@ -21,7 +21,7 @@ class AppFixtures extends Fixture
             $realisateur->setNom($faker->lastName());
             $realisateur->setPrenom($faker->firstName());
             $realisateur->setAnneeNaissance($faker->numberBetween(1940, 1990));
-            
+
             $manager->persist($realisateur);
             $realisateurs[] = $realisateur;
         }
@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
             $film->setAnnee($faker->numberBetween(1980, 2024));
             $film->setDescription($faker->paragraph());
             $film->setRealisateur($faker->randomElement($realisateurs));
-            
+
             $manager->persist($film);
         }
 

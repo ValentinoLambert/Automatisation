@@ -13,7 +13,7 @@ final class RealisateurController extends AbstractController
     public function index(RealisateurRepository $realisateurRepository): Response
     {
         $realisateurs = $realisateurRepository->findAll();
-        
+
         return $this->render('realisateur/index.html.twig', [
             'realisateurs' => $realisateurs,
         ]);
