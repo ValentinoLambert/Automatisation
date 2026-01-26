@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
+
 use App\Repository\RealisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: RealisateurRepository::class)]
+
 class Realisateur
 {
     #[ORM\Id]
@@ -21,6 +25,18 @@ class Realisateur
 
     #[ORM\Column(nullable: true)]
     private ?int $anneeNaissance = null;
+
+
+    /**
+     * @var Collection<int, Film>
+     */
+    #[ORM\OneToMany(targetEntity: Film::class, mappedBy: 'realisateur')]
+    private Collection $films;
+
+    public function __construct()
+    {
+        $this->films = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,5 +77,13 @@ class Realisateur
         $this->anneeNaissance = $anneeNaissance;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Film>
+     */
+    public function getFilms(): Collection
+    {
+        return $this->films;
     }
 }
