@@ -1,0 +1,58 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  ci-cd:
+    name: Tests et deploiement
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Recuperation du code
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      # Installation de PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: ctype, iconv, pdo, sqlite3
+          tools: composer:v2
+      
+      # Installation des dependances
+      - name: Installation des dependances
+        working-directory: cours4/td_backend
+        run: composer install --prefer-dist --no-progress --no-interaction
+      
+      # Configuration de l'environnement
+      - name: Configuration environnement
+        working-directory: cours4/td_backend
+        run: cp .env.ci .env
+      
+      # Execution PHPCS
+      - name: PHPCS
+        working-directory: cours4/td_backend
+        run: composer phpcs
+      
+      # Execution PHPStan
+      - name: PHPStan
+        working-directory: cours4/td_backend
+        run: composer phpstan
+      
+      # Execution des tests
+      - name: PHPUnit
+        working-directory: cours4/td_backend
+        run: composer test
+      
+      # Simulation deploiement
+      - name: Deploiement simule
+        run: |
+          echo "Preparation du deploiement..."
+          echo "Transfert des fichiers..."
+          echo "Execution des migrations..."
+          echo "Deploiement termine"
