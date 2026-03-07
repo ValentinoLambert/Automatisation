@@ -48,6 +48,30 @@ docker compose down
 
 ---
 
+## Étape 4 – Actions réalisées
+
+1. **Montée de version PHP** : Passage de PHP 7.4 à **PHP 8.2-cli** dans le Dockerfile.
+2. **Modernisation des dépendances** (via `composer.json`) :
+   - **Twig 1.x → 3.x** : Moteur de template à jour.
+   - **Eloquent (illuminate/database) 4.2 → 8.x** : ORM compatible PHP 8.
+   - **Carbon 1.x → 2.x** : Gestion des dates mise à jour.
+3. **Adaptation du code** :
+   - Mise à jour des namespaces Twig (`\Twig\Loader\FilesystemLoader`, `\Twig\Environment`).
+   - Remplacement de `loadTemplate()` par `load()` dans tous les contrôleurs.
+   - Ajout d'une gestion d'erreurs au début de `index.php` pour ignorer les notices de dépréciation de Slim 2 (indispensable pour PHP 8.2 sans réécrire le framework).
+4. **Optimisation Docker** :
+   - Ajout du service `mysql:8.0` au `docker-compose.yml`.
+   - Automatisation du `composer install` au démarrage.
+   - Suppression de l'attribut `version` obsolète.
+
+---
+
+## Étape 5 (bonus)
+
+*(à compléter si besoin)*
+
+---
+
 ## Étape 3 – Préparer la maintenance
 
 ### Versions obsolètes

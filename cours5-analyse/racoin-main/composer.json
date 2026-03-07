@@ -1,8 +1,9 @@
 {
     "require": {
         "slim/slim": "2.*",
-        "twig/twig": "~1.0",
-        "illuminate/database": "4.2.9"
+        "twig/twig": "^3.0",
+        "illuminate/database": "^8.0",
+        "illuminate/events": "^8.0"
     },
     "autoload":{
         "psr-0":{
@@ -14,6 +15,9 @@
     "config": {
         "allow-plugins": {
             "kylekatarnls/update-helper": true
+        },
+        "audit": {
+            "block-insecure": false
         }
     }
 }
