@@ -54,10 +54,10 @@ docker compose down
 
 | Composant | Version utilisée | Dernière version | Statut |
 |-----------|-----------------|-----------------|--------|
-| PHP | 7.4 | 8.3 | ❌ EOL depuis nov. 2022 |
-| Slim | 2.6.3 | 4.15.1 | ❌ EOL, 2 versions majeures de retard |
-| Twig | 1.44.8 | 3.11.3 | ❌ EOL, 2 versions majeures de retard |
-| illuminate/database (Eloquent) | 4.2.9 | 8.x | ❌ EOL, très ancien |
+| PHP | 7.4 | 8.3 | ❌ plus maintenue depuis nov. 2022 |
+| Slim | 2.6.3 | 4.15.1 | ❌ plus maintenue, 2 versions majeures de retard |
+| Twig | 1.44.8 | 3.11.3 | ❌ plus maintenue, 2 versions majeures de retard |
+| illuminate/database (Eloquent) | 4.2.9 | 8.x | ❌ plus maintenue, très ancienne |
 | nesbot/carbon | 1.39.1 | 2.73.0 | ❌ version majeure de retard |
 | MySQL (image Docker) | 8.0 | 8.4 LTS | ⚠️ pas critique mais à surveiller |
 
