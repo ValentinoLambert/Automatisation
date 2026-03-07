@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 require 'vendor/autoload.php';
 use db\connection;
 
@@ -33,8 +34,8 @@ if (!isset($_SESSION['token'])) {
 
 //$app->add(new CsrfGuard());
 
-$loader = new Twig_Loader_Filesystem('template');
-$twig = new Twig_Environment($loader);
+$loader = new \Twig\Loader\FilesystemLoader('template');
+$twig = new \Twig\Environment($loader);
 
 $menu = array(
     array('href' => "./index.php",
@@ -123,7 +124,7 @@ $app->get('/cat/:n', function ($n) use ($twig, $menu, $chemin, $cat) {
 });
 
 $app->get('/api(/)', function () use ($twig, $menu, $chemin, $cat) {
-    $template = $twig->loadTemplate("api.html.twig");
+    $template = $twig->load("api.html.twig");
     $menu = array(
         array('href' => $chemin,
             'text' => 'Acceuil'),
