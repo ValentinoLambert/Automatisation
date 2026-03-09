@@ -2,7 +2,7 @@
 
 ## Étape 1 – Analyse théorique
 
-**Langages utilisés**  
+**Langages utilisés**
 PHP, SQL, SCSS, JavaScript
 
 **Frameworks principaux**
@@ -11,15 +11,14 @@ PHP, SQL, SCSS, JavaScript
 - Twig 1 (templates)
 - Eloquent / illuminate/database 4.2.9 (ORM MySQL)
 
-**But de l'application**  
+**But de l'application**
 Site de petites annonces : poster, consulter, modifier, supprimer des annonces. Expose aussi une API REST.
 
 **Ce qu'il faut pour démarrer**
 
-- `composer install` (vendor/ absent)
-- Créer `config/config.ini` avec les identifiants BDD (absent)
+- Créer `config/config.ini` avec les identifiants BDD (absent du repo)
 - Une base MySQL avec le schéma : `sql/create_schema.sql` + `sql/import_data.sql`
-- Le docker-compose n'a pas de service MySQL → à ajouter
+- Le docker-compose n'avait pas de service MySQL → à ajouter
 
 ---
 
@@ -28,10 +27,8 @@ Site de petites annonces : poster, consulter, modifier, supprimer des annonces. 
 **Actions réalisées**
 
 1. Créé `config/config.ini` avec les identifiants correspondant au service Docker (`host=mysql`, `database=racoin`, `username=racoin`, `password=racoin`).
-
 2. Ajouté un service `mysql:8.0` dans `docker-compose.yml` :
-   - initialise automatiquement la BDD via les fichiers dans `sql/` montés dans `/docker-entrypoint-initdb.d/`
-   - les credentials correspondent à `config.ini`
+   - initialise automatiquement la BDD via les fichiers `sql/` montés dans `/docker-entrypoint-initdb.d/`
    - le service PHP `depends_on: mysql` pour démarrer après la BDD
 
 **Mode d'emploi**
@@ -45,30 +42,6 @@ docker compose up -d --build
 # Arrêter
 docker compose down
 ```
-
----
-
-## Étape 4 – Actions réalisées
-
-1. **Montée de version PHP** : Passage de PHP 7.4 à **PHP 8.2-cli** dans le Dockerfile.
-2. **Modernisation des dépendances** (via `composer.json`) :
-   - **Twig 1.x → 3.x** : Moteur de template à jour.
-   - **Eloquent (illuminate/database) 4.2 → 8.x** : ORM compatible PHP 8.
-   - **Carbon 1.x → 2.x** : Gestion des dates mise à jour.
-3. **Adaptation du code** :
-   - Mise à jour des namespaces Twig (`\Twig\Loader\FilesystemLoader`, `\Twig\Environment`).
-   - Remplacement de `loadTemplate()` par `load()` dans tous les contrôleurs.
-   - Ajout d'une gestion d'erreurs au début de `index.php` pour ignorer les notices de dépréciation de Slim 2 (indispensable pour PHP 8.2 sans réécrire le framework).
-4. **Optimisation Docker** :
-   - Ajout du service `mysql:8.0` au `docker-compose.yml`.
-   - Automatisation du `composer install` au démarrage.
-   - Suppression de l'attribut `version` obsolète.
-
----
-
-## Étape 5 (bonus)
-
-*(à compléter si besoin)*
 
 ---
 
@@ -94,7 +67,39 @@ docker compose down
 | 3   | Mettre à jour Twig 1 → Twig 3                             | 6         | 7 – moteur de templates                                |
 | 4   | Mettre à jour Eloquent 4 → 8                              | 7         | 7 – ORM utilisé partout, correctifs de sécurité        |
 | 5   | Remplacer config.ini par variables d'environnement Docker | 2         | 7 – évite les credentials en clair                     |
-| 6   | Ajouter phpstan/phpcs en CI                               | 4         | 6 – détecte les erreurs tôt, améliore la qualité       |
+| 6   | Ajouter phpstan/phpcs en CI                               | 4         | 6 – détecte les erreurs tôt                            |
 | 7   | Ajouter des tests unitaires (PHPUnit)                     | 8         | 7 – aucune couverture de tests actuellement            |
 
-.
+---
+
+## Étape 4 – Réaliser la maintenance
+
+1. **PHP 7.4 → 8.2** : mise à jour dans le Dockerfile (`FROM php:8.2-cli`)
+2. **Twig 1 → 3** : `composer.json` `~1.0` → `^3.0`, namespaces mis à jour dans les controllers (`\Twig\Loader\FilesystemLoader`, `\Twig\Environment`, `load()` à la place de `loadTemplate()`)
+3. **Eloquent 4 → 8** : `composer.json` `4.2.9` → `^8.0`
+4. **Carbon 1 → 2** : mis à jour automatiquement
+5. `composer update` lancé dans le conteneur (`--user root` nécessaire pour les droits d'écriture sur le volume)
+6. App vérifiée HTTP 200 après les mises à jour
+
+**Slim 2 non migré à cette étape** : Slim 4 nécessite une réécriture de toutes les routes → traité en étape 5.
+
+---
+
+## Étape 5 – Amélioration continue
+
+### Migration Slim 2 → Slim 4
+
+**Pourquoi ?**
+Slim 2 était la seule dépendance majeure non mise à jour. Cotée 8/10 dans la todo list. Tout le code Slim est concentré dans un seul fichier (`index.php`, 232 lignes), donc rapport effort/impact favorable.
+
+**Ce qui a changé dans `index.php` :**
+
+- `new \Slim\Slim()` → `AppFactory::create()`
+- Paramètres de route `:id` → `{id}` + `$args['id']`
+- `$app->request->post()` → `$request->getParsedBody()`
+- `$app->response->headers->set(...)` → `$response->withHeader(...)`
+- `->via('GET', 'POST')` → `$app->map(['GET', 'POST'], ...)`
+- `$app->notFound()` → `throw new HttpNotFoundException($request)`
+- Chaque callback reçoit `($request, $response, $args)` et retourne `$response`
+
+**Résultat :** app fonctionnelle sur Slim 4.15.1 + PHP 8.2, HTTP 200 sur toutes les routes testées ✅
