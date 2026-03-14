@@ -11,6 +11,6 @@
     },
     "require": {},
     "scripts": {
-        "phpunit":"phpunit Tests/ComputerDecoratorTest.php"
+        "phpunit":"./vendor/bin/phpunit Tests/ComputerDecoratorTest.php"
     }
 }
