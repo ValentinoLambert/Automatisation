@@ -1,3 +1,3 @@
-fair Andrieu Paul
+Andrieu Paul
 Lambert Valentino
 DWM-2
