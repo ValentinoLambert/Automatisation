@@ -1,7 +1,10 @@
 <?php
 require('../vendor/autoload.php');
 
-die('ici vous pouvez tester votre singleton !');
-# TODO: Récuperer une instance de Config
-# Afficher une valeur contenu dans config.php
-# Récupérer une seconde instance de Config et vérifié que les deux instances sont identiques
+use App\Config;
+
+$config1 = Config::getInstance();
+echo 'debug = ' . ($config1->get('debug') ? 'true' : 'false') . '<br>';
+
+$config2 = Config::getInstance();
+echo 'Même instance ? ' . (($config1 === $config2) ? 'oui' : 'non');
