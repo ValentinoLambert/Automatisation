@@ -102,4 +102,4 @@ Slim 2 était la seule dépendance majeure non mise à jour. Cotée 8/10 dans la
 - `$app->notFound()` → `throw new HttpNotFoundException($request)`
 - Chaque callback reçoit `($request, $response, $args)` et retourne `$response`
 
-**Résultat :** app fonctionnelle sur Slim 4.15.1 + PHP 8.2, HTTP 200 sur toutes les routes testées ✅
+**Résultat :** app fonctionnelle sur Slim 4.15.1 + PHP 8.2, HTTP 200 sur toutes les routes testées
