@@ -3,7 +3,7 @@
 ### Exercices
 Dans chaque sous dossiers vous trouverez un exercice devant implémenter le design pattern correspondant au nom de ce dossier.
 
-Pour switcher entre chaque exercice, décommenter la ligne correspondante dans le `docker-compose.yml` et faire un `docker compose down && docker compose up -d --build && docker compose run --rm php composer install` pour reconstruire le projet.
+Pour switcher entre chaque exercice, décommenter la ligne correspondante dans le `docker-compose.yml` et faire un `docker compose down && docker compose     up -d --build && docker compose run --rm php composer install` pour reconstruire le projet.
 
 Chaque projet sera alors accessible via localhost:8080 (sauf exceptions indiquées)
 
