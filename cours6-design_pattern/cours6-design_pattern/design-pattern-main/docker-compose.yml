@@ -5,7 +5,7 @@ services:
     ports:
       - ${PHP_PORT:-8080}:80
     volumes:
-      #      - ./builder:/var/www/html
+            - ./builder:/var/www/html
       #      - ./decorator:/var/www/html
       #      - ./factory:/var/www/html
       #      - ./observer:/var/www/html
