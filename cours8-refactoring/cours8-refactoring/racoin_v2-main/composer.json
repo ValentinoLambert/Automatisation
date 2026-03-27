@@ -9,9 +9,9 @@
     },
     "autoload":{
         "psr-0":{
-            "controller":"",
-            "model":"",
-            "db":""
+            "controller":"src/",
+            "model":"src/",
+            "db":"src/"
         }
     },
     "config": {
