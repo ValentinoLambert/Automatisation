@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Films{% endblock %}
+
+{% block body %}
+<div>
+    <h1>Liste des Films</h1>
+    
+    <ul>
+    {% for film in films %}
+        <li>
+            <strong>{{ film.titre }}</strong> ({{ film.annee }})
+            <br>
+            Réalisateur: {{ film.realisateur.prenom }} {{ film.realisateur.nom }}
+            <br>
+            Description: {{ film.description }}
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
