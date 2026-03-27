@@ -1,0 +1,25 @@
+{
+    "require": {
+        "php": ">=8.2",
+        "slim/slim": "^4.0",
+        "slim/psr7": "^1.0",
+        "slim/http": "^1.0",
+        "twig/twig": "^3.0",
+        "illuminate/database": "^11.0",
+        "ext-mysqli": "*",
+        "ext-pdo": "*"
+    },
+    "autoload":{
+        "psr-4":{
+            "controller\\":"src/controller/",
+            "model\\":"src/model/",
+            "db\\":"src/db/",
+            "util\\":"src/util/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
+    }
+}
