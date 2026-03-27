@@ -6,7 +6,7 @@ services:
       - ${PHP_PORT:-8080}:80
     volumes:
       #      - ./builder:/var/www/html
-      #      - ./decorator:/var/www/html
+      - ./decorator:/var/www/html
       #      - ./factory:/var/www/html
       #      - ./observer:/var/www/html
       #      - ./singleton:/var/www/html
