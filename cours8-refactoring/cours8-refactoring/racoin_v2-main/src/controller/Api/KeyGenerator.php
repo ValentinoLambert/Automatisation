@@ -3,52 +3,40 @@
 namespace controller\Api;
 
 use model\Api\ApiKey;
+use Twig\Environment;
 
-class KeyGenerator {
-
-    function show($twig, $menu, $chemin, $cat) {
+class KeyGenerator
+{
+    public function show(Environment $twig, array $menu, string $chemin, array $cat): void
+    {
+        $menu = [
+            ['href' => $chemin, 'text' => 'Acceuil'],
+            ['href' => $chemin . "/search", 'text' => "Recherche"],
+        ];
         $template = $twig->load("Api/key-generator.html.twig");
-        $menu = array(
-            array('href' => $chemin,
-                'text' => 'Acceuil'),
-            array('href' => $chemin."/search",
-                'text' => "Recherche")
-        );
-        echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin, "categories" => $cat));
+        echo $template->render(["breadcrumb" => $menu, "chemin" => $chemin, "categories" => $cat]);
     }
 
-    function generateKey($twig, $menu, $chemin, $cat, $nom) {
-        $nospace_nom = str_replace(' ', '', $nom);
+    public function generateKey(Environment $twig, array $menu, string $chemin, array $cat, string $nom): void
+    {
+        $menu = [
+            ['href' => $chemin, 'text' => 'Acceuil'],
+            ['href' => $chemin . "/search", 'text' => "Recherche"],
+        ];
 
-        if($nospace_nom === '') {
+        if (str_replace(' ', '', $nom) === '') {
             $template = $twig->load("Api/key-generator-error.html.twig");
-            $menu = array(
-                array('href' => $chemin,
-                    'text' => 'Acceuil'),
-                array('href' => $chemin."/search",
-                    'text' => "Recherche")
-            );
-
-            echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin, "categories" => $cat));
-        } else {
-            $template = $twig->load("Api/key-generator-result.html.twig");
-            $menu = array(
-                array('href' => $chemin,
-                    'text' => 'Acceuil'),
-                array('href' => $chemin."/search",
-                    'text' => "Recherche")
-            );
-
-            $key = uniqid();
-            $apikey = new ApiKey();
-
-            $apikey->id_apikey = $key;
-            $apikey->name_key = htmlentities($nom);
-            $apikey->save();
-
-            echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin, "categories" => $cat, "key" => $key));
+            echo $template->render(["breadcrumb" => $menu, "chemin" => $chemin, "categories" => $cat]);
+            return;
         }
 
-    }
+        $key    = uniqid();
+        $apikey = new ApiKey();
+        $apikey->id_apikey  = $key;
+        $apikey->name_key   = htmlentities($nom);
+        $apikey->save();
 
+        $template = $twig->load("Api/key-generator-result.html.twig");
+        echo $template->render(["breadcrumb" => $menu, "chemin" => $chemin, "categories" => $cat, "key" => $key]);
+    }
 }

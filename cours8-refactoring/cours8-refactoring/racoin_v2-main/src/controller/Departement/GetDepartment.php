@@ -4,11 +4,12 @@ namespace controller\Departement;
 
 use model\Departement\Departement;
 
-class GetDepartment {
+class GetDepartment
+{
+    protected array $departments = [];
 
-    protected $departments = array();
-
-    public function getAllDepartments() {
+    public function getAllDepartments(): array
+    {
         return Departement::orderBy('nom_departement')->get()->toArray();
     }
 }

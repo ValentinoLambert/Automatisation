@@ -5,55 +5,51 @@ namespace controller\Home;
 use model\Annonce\Annonce;
 use model\Annonce\Photo;
 use model\Annonceur\Annonceur;
+use Twig\Environment;
 
 class Index
 {
-    protected $annonce = array();
+    public function __construct(
+        protected Environment $twig,
+        protected string $chemin
+    ) {}
 
-    public function displayAllAnnonce($twig, $menu, $chemin, $cat)
+    protected array $annonce = [];
+
+    public function displayAllAnnonce(array $menu, array $cat): void
     {
-        $template = $twig->load("Home/index.html.twig");
-        $menu     = array(
-            array(
-                'href' => $chemin,
-                'text' => 'Acceuil'
-            ),
-        );
+        $menu = [['href' => $this->chemin, 'text' => 'Acceuil']];
 
-        $this->getAll($chemin);
-        echo $template->render(array(
+        $this->getAll();
+
+        $template = $this->twig->load("Home/index.html.twig");
+        echo $template->render([
             "breadcrumb" => $menu,
-            "chemin"     => $chemin,
+            "chemin"     => $this->chemin,
             "categories" => $cat,
-            "annonces"   => $this->annonce
-        ));
+            "annonces"   => $this->annonce,
+        ]);
     }
 
-    public function getAll($chemin)
+    public function getAll(): void
     {
-        $tmp     = Annonce::with("Annonceur")->orderBy('id_annonce', 'desc')->take(12)->get();
-        $annonce = [];
-        foreach ($tmp as $t) {
-            $t->nb_photo = Photo::where("id_annonce", "=", $t->id_annonce)->count();
-            if ($t->nb_photo > 0) {
-                $t->url_photo = Photo::select("url_photo")
-                    ->where("id_annonce", "=", $t->id_annonce)
-                    ->first()->url_photo;
-            } else {
-                $t->url_photo = '/img/noimg.png';
-            }
-            $t->nom_annonceur = Annonceur::select("nom_annonceur")
-                ->where("id_annonceur", "=", $t->id_annonceur)
-                ->first()->nom_annonceur;
-            array_push($annonce, $t);
+        $annoncesList = Annonce::with(['annonceur', 'photo'])->orderBy('id_annonce', 'desc')->take(12)->get();
+        $annonces     = [];
+
+        foreach ($annoncesList as $annonce) {
+            $annonce->url_photo     = $annonce->getMainPhotoUrl();
+            $annonce->nom_annonceur = $annonce->annonceur?->nom_annonceur;
+            $annonces[] = $annonce;
         }
-        $this->annonce = $annonce;
+
+        $this->annonce = $annonces;
     }
 
-	/**
-	 * @throws \Exception
-	 */
-	public function displayException($twig, $menu, $chemin, $cat) {
-		throw new \Exception('Cette méthode déclenche une exception.');
-	}
+    /**
+     * @throws \Exception
+     */
+    public function displayException(Environment $twig, array $menu, string $chemin, array $cat): never
+    {
+        throw new \Exception('Cette méthode déclenche une exception.');
+    }
 }

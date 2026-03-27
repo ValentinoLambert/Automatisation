@@ -2,10 +2,11 @@
 
 namespace model\Departement;
 
-class Departement extends \Illuminate\Database\Eloquent\Model {
+use Illuminate\Database\Eloquent\Model;
+
+class Departement extends Model
+{
     protected $table = 'departement';
     protected $primaryKey = 'id_departement';
     public $timestamps = false;
 }
-
-?>

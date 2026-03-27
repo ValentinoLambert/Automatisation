@@ -6,49 +6,51 @@ use model\Categorie\Categorie;
 use model\Annonce\Annonce;
 use model\Annonce\Photo;
 use model\Annonceur\Annonceur;
+use Twig\Environment;
 
-class GetCategorie {
+class GetCategorie
+{
+    protected array $categories = [];
+    protected array $annonce    = [];
 
-    protected $categories = array();
-
-    public function getCategories() {
+    public function getCategories(): array
+    {
         return Categorie::orderBy('nom_categorie')->get()->toArray();
     }
 
-    public function getCategorieContent($chemin, $n) {
-        $tmp = Annonce::with("Annonceur")->orderBy('id_annonce','desc')->where('id_categorie', "=", $n)->get();
-        $annonce = [];
-        foreach($tmp as $t) {
-            $t->nb_photo = Photo::where("id_annonce", "=", $t->id_annonce)->count();
-            if($t->nb_photo > 0){
-                $t->url_photo = Photo::select("url_photo")
-                    ->where("id_annonce", "=", $t->id_annonce)
-                    ->first()->url_photo;
-            }else{
-                $t->url_photo = $chemin.'/img/noimg.png';
-            }
-            $t->nom_annonceur = Annonceur::select("nom_annonceur")
-                ->where("id_annonceur", "=", $t->id_annonceur)
-                ->first()->nom_annonceur;
-            array_push($annonce, $t);
+    public function getCategorieContent(string $chemin, int $n): void
+    {
+        $annoncesList = Annonce::with(['annonceur', 'photo'])
+            ->where('id_categorie', "=", $n)
+            ->orderBy('id_annonce', 'desc')
+            ->get();
+            
+        $annonces = [];
+
+        foreach ($annoncesList as $annonce) {
+            $annonce->url_photo     = $annonce->getMainPhotoUrl($chemin);
+            $annonce->nom_annonceur = $annonce->annonceur?->nom_annonceur;
+            $annonces[] = $annonce;
         }
-        $this->annonce = $annonce;
+
+        $this->annonce = $annonces;
     }
 
-    public function displayCategorie($twig, $menu, $chemin, $cat, $n) {
-        $template = $twig->load("Home/index.html.twig");
-        $menu = array(
-            array('href' => $chemin,
-                'text' => 'Acceuil'),
-            array('href' => $chemin."/cat/".$n,
-                'text' => Categorie::find($n)->nom_categorie)
-        );
+    public function displayCategorie(Environment $twig, array $menu, string $chemin, array $cat, int $n): void
+    {
+        $menu = [
+            ['href' => $chemin, 'text' => 'Acceuil'],
+            ['href' => $chemin . "/cat/" . $n, 'text' => Categorie::find($n)?->nom_categorie],
+        ];
 
         $this->getCategorieContent($chemin, $n);
-        echo $template->render(array(
+
+        $template = $twig->load("Home/index.html.twig");
+        echo $template->render([
             "breadcrumb" => $menu,
-            "chemin" => $chemin,
+            "chemin"     => $chemin,
             "categories" => $cat,
-            "annonces" => $this->annonce));
+            "annonces"   => $this->annonce,
+        ]);
     }
 }
