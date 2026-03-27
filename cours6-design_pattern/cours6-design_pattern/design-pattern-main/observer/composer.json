@@ -11,6 +11,6 @@
     },
     "require": {},
     "scripts": {
-        "phpunit":"phpunit Tests/UserMusicBandTest.php"
+        "phpunit":"./vendor/bin/phpunit Tests/UserMusicBandTest.php"
     }
 }
